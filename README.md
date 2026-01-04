@@ -34,7 +34,7 @@ This is a simple Node.js application that demonstrates how to implement user aut
 
 1. Clone the repository:
    ```
-   git clone
+   git clone https://github.com/Diego3128/node-jwt.git
    ```
 
 2. Navigate to the project directory:
@@ -76,3 +76,22 @@ This is a simple Node.js application that demonstrates how to implement user aut
 base URL: http://localhost:3000/api/v1/auth
 
 - POST /register : Register a new user
+ payload (JSON or x-www-form-urlencoded): 
+  ```
+  {
+    "name": "your_username",
+    "email": "your_email",
+    "password": "your_password"
+  }
+  ```
+
+- POST /login : Login a user
+ payload (JSON or x-www-form-urlencoded): 
+  ```
+  {
+    "email": "your_email",
+    "password": "your_password"
+  }
+  ```
+
+- Get /validate-email/:token : Validate user email with token
