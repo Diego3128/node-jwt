@@ -11,4 +11,8 @@ export const envs = {
   MONGO_DB_NAME: env.get("MONGO_DB_NAME").required().asString(),
   MONGO_DB_URL: env.get("MONGO_DB_URL").required().asUrlString(),
   ENV: env.get("ENV").required().asString(),
+  JWT_SECRET: env.get("JWT_SECRET").required().asString(),
+  RESENDAPIKEY: env.get("RESEND_API_KEY").required().asString(),
+  RESENDTESTEMAIL: env.get("RESEND_TEST_EMAIL").required().asString(),
+  APIENDPOINT: env.get("APIENDPOINT").required().asString(),
 };
