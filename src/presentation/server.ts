@@ -36,7 +36,7 @@ export class Server {
       // server file in /${this.publicPath}/index.html for any unknown URL
       const indexFilePath = join(
         __dirname,
-        `../../${this.publicPath}/index.html`
+        `../../${this.publicPath}/index.html`,
       );
       res.sendFile(indexFilePath);
     });

@@ -50,7 +50,7 @@ export class AuthService {
       });
       if (!token) throw CustomError.internalServer("Error while creating JWT");
 
-      // send validation link
+      // send validation link (with email encoded in jwt)
       await this.sendEmailValidationLink(userEntity.email);
 
       return {

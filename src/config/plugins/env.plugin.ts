@@ -15,4 +15,5 @@ export const envs = {
   RESENDAPIKEY: env.get("RESEND_API_KEY").required().asString(),
   RESENDTESTEMAIL: env.get("RESEND_TEST_EMAIL").required().asString(),
   APIENDPOINT: env.get("APIENDPOINT").required().asString(),
+  SHOULD_SEND_EMAILS: env.get("SHOULD_SEND_EMAILS").default("false").asBool(),
 };

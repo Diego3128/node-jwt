@@ -5,12 +5,13 @@ import { EmailService } from "../services/auth/email.service";
 import { envs } from "../../config";
 
 export class AuthRoutes {
-  static get routes() {
+  static get routes(): Router {
     const router = Router();
 
     const emailService = new EmailService(
       envs.RESENDAPIKEY,
-      envs.RESENDTESTEMAIL
+      envs.RESENDTESTEMAIL,
+      envs.SHOULD_SEND_EMAILS,
     );
 
     // Inject emailService

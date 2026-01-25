@@ -23,16 +23,16 @@ export class JWTAdapter {
         (error, token) => {
           if (error) return resolve(null);
           return resolve(token ?? null);
-        }
+        },
       );
     });
   };
   //
-  static validateJWT = async ({
+  static validateJWT = async <T>({
     token,
   }: {
     token: string;
-  }): Promise<unknown | null> => {
+  }): Promise<T | null> => {
     return new Promise((resolve) => {
       jwt.verify(token, envs.JWT_SECRET, {}, (error, decoded) => {
         if (envs.ENV === "dev") {
@@ -41,7 +41,7 @@ export class JWTAdapter {
         if (error) {
           return resolve(null);
         }
-        return resolve(decoded);
+        return resolve(decoded as T);
       });
     });
   };

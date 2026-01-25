@@ -178,11 +178,11 @@ body {
   background: linear-gradient(
     45deg,
     transparent,
-    rgba(138, 43, 226, 0.2),
+    rgba(226, 43, 205, 0.2),
     transparent
   );
   transform: translateX(-100%);
-  animation: cardShine 4s infinite;
+  animation: cardShine 4s infinite  alternate;
 }
 
 @keyframes cardShine {
@@ -261,7 +261,7 @@ body {
     rgba(255, 255, 255, 0.1),
     transparent
   );
-  animation: shimmer 8s infinite;
+  animation: shimmer 14s infinite alternate;
   pointer-events: none;
 }
 
