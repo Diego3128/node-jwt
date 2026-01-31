@@ -1,6 +1,6 @@
 import { CustomError, UserEntity } from "../../domain";
 import { Response, Request } from "express";
-import { CreateCategoryDTO } from "../../domain/dtos";
+import { CreateCategoryDTO, PaginationDTO } from "../../domain/dtos";
 import { CategoryService } from "../services/category.service";
 
 export class CategoryController {
@@ -14,9 +14,12 @@ export class CategoryController {
   };
 
   getCategories = (req: Request, res: Response) => {
-    // const userEntity: UserEntity = req.body.user;
+    const { page = 1, limit = 10 } = req.query;
+    const [error, paginationDTO] = PaginationDTO.create(+page, +limit);
+    if (error) res.status(400).json({ message: error });
+
     this.categoryService
-      .getCategories()
+      .getCategories(paginationDTO!)
       .then((categories) => {
         return res.status(200).json({ categories });
       })

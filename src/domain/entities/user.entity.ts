@@ -22,7 +22,7 @@ export class UserEntity {
       role,
       img = null,
     } = object;
-    console.log({ object });
+    // console.log({ object });
 
     if (!id && !_id) throw CustomError.badRequest("Missing id attribute");
     if (!name) throw CustomError.badRequest("Missing name attribute");
