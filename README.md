@@ -60,12 +60,23 @@ This is a simple Node.js application that demonstrates how to implement user aut
 
 6. Start the application:
 
-- in development mode with nodemon:
+in development mode:
+  
+- seed the database
+    ```
+    npm  run seed
+    ```
+
+- build and run de app:
+  
     ```
     npm run dev:nodemon
     ```
 
-- in production mode:
+in production mode:
+
+- build and run the app:
+  
     ```
     npm start
     ```
