@@ -6,6 +6,7 @@
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "dev:nodemon": "nodemon",
+    "seed": "npm run build && node ./dist/data/seed/seed.js",
     "test": "jest",
     "lint": "eslint"
   },

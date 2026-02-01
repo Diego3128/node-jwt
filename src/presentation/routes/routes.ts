@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthRoutes } from "../auth/routes";
 import { CategoryRoutes } from "../category/routes";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
+import { ProductRoutes } from "../product/routes";
 
 export class AppRoutes {
   static get routes() {
@@ -15,7 +16,11 @@ export class AppRoutes {
       CategoryRoutes.routes,
     );
 
-    // router.use("/api/v1/products", ProductRoutes.routes);
+    router.use(
+      "/api/v1/product",
+      [AuthMiddleware.validateJWT], // rewrites the req.user
+      ProductRoutes.routes,
+    );
 
     return router;
   }

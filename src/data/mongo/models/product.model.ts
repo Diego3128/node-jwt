@@ -24,8 +24,7 @@ const ProductSchema = new Schema({
     maxlength: [500, "The description cannot exceed 500 characters"],
   },
   img: {
-    type: [String],
-    default: [],
+    type: String,
   },
   price: {
     type: Number,
@@ -44,5 +43,17 @@ const ProductSchema = new Schema({
     index: true,
   },
 });
+
+ProductSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    (ret as any).id = (ret as any)._id;
+    delete (ret as any)._id;
+    ret.img = ret.img ?? '';
+    return ret;
+  },
+});
+
 // generate model
 export const ProductModel = mongoose.model("Product", ProductSchema);
