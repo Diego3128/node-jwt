@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import { join } from "path";
+import fileUpload from "express-fileupload";
 
 interface Options {
   port: number;
@@ -24,6 +25,9 @@ export class Server {
     // parsing middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+
+    // file upload middleware
+    this.app.use(fileUpload());
 
     // app routes
     this.app.use(this.routes);

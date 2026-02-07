@@ -8,3 +8,7 @@
 *.tmp
 .idea/
 /mongo
+/uploads/products
+/uploads/files
+/uploads/categories
+/uploads/users

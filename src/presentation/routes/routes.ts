@@ -3,6 +3,8 @@ import { AuthRoutes } from "../auth/routes";
 import { CategoryRoutes } from "../category/routes";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
 import { ProductRoutes } from "../product/routes";
+import { FileUploadRoutes } from "../file-upload/routes";
+import { FileUploadMiddleware } from "../middlewares/file-upload.middleware";
 
 export class AppRoutes {
   static get routes() {
@@ -20,6 +22,12 @@ export class AppRoutes {
       "/api/v1/product",
       [AuthMiddleware.validateJWT], // rewrites the req.user
       ProductRoutes.routes,
+    );
+
+    router.use(
+      "/api/v1/file-upload",
+      [FileUploadMiddleware.validateFiles], // writes the req.body and adds a field 'files' of type fileUpload.UploadedFile
+      FileUploadRoutes.routes,
     );
 
     return router;
