@@ -17,19 +17,9 @@ export class FileUploadController {
   uploadFile = (req: Request, res: Response) => {
     const type = req.params.type ?? "files";
 
-    const validTypes = ["users", "categories", "products", "files"];
-
-    if (!validTypes.includes(type)) {
-      return this.handleError(
-        CustomError.badRequest(
-          `The type '${type} is invalid. Use a valid type: ${validTypes.join(", ")}.'`,
-        ),
-        res,
-      );
-    }
-
-    const image = req.body.files[0] as fileUpload.UploadedFile ?? null;
-    if(!image) return this.handleError(CustomError.badRequest("Missing file"), res);
+    const image = (req.body.files[0] as fileUpload.UploadedFile) ?? null;
+    if (!image)
+      return this.handleError(CustomError.badRequest("Missing file"), res);
 
     this.fileUploadService
       .uploadSingleFile(image, type, ["gif", "png", "jpg", "jpeg"])
@@ -37,14 +27,31 @@ export class FileUploadController {
         return res.status(200).json({ message: result });
       })
       .catch((error) => {
-        if(error instanceof CustomError) return this.handleError(error, res);
+        if (error instanceof CustomError) return this.handleError(error, res);
         return res.status(400).json(error);
       });
   };
 
-  uploadMultipleFiles = (req: Request, res: Response) => {
-    return res
-      .status(500)
-      .json({ message: "UPLOAD MULTIPLE FILES NOT IMPLEMENTED" });
+  uploadMultipleFiles = async (req: Request, res: Response) => {
+    const type = req.params.type;
+
+    console.log({ type });
+
+    const files = (req.body.files as fileUpload.UploadedFile[]) ?? [];
+
+    if (files.length === 0)
+      return this.handleError(CustomError.badRequest("Missing files"), res);
+
+    this.fileUploadService
+      .uploadMultipleFile(files, type, ["gif", "png", "jpg", "jpeg", "webp"])
+      .then((result) => {
+        return res
+          .status(200)
+          .json({ message: "files uploaded successfully", result });
+      })
+      .catch((error) => {
+        if (error instanceof CustomError) return this.handleError(error, res);
+        return res.status(400).json(error);
+      });
   };
 }

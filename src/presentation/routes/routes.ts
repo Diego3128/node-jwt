@@ -5,6 +5,7 @@ import { AuthMiddleware } from "../middlewares/auth.middleware";
 import { ProductRoutes } from "../product/routes";
 import { FileUploadRoutes } from "../file-upload/routes";
 import { FileUploadMiddleware } from "../middlewares/file-upload.middleware";
+import { ImageRoutes } from "../images/routes";
 
 export class AppRoutes {
   static get routes() {
@@ -26,8 +27,15 @@ export class AppRoutes {
 
     router.use(
       "/api/v1/file-upload",
-      [FileUploadMiddleware.validateFiles], // writes the req.body and adds a field 'files' of type fileUpload.UploadedFile
+      [
+        FileUploadMiddleware.validateFiles, // writes the req.body and adds a field 'files' of type fileUpload.UploadedFile
+      ],
       FileUploadRoutes.routes,
+    );
+
+    router.use(
+      "/api/v1/image",
+      ImageRoutes.routes,
     );
 
     return router;

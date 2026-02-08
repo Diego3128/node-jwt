@@ -27,7 +27,7 @@ export class FileUploadService {
     file: fileUpload.UploadedFile,
     folder: string = "files",
     validExtenstions: string[] = ["png", "jpg", "jpeg", "webp", "avif"],
-  ) :Promise<{success: boolean, message: string, file: string | null}> => {
+  ): Promise<{ success: boolean; message: string; file: string | null }> => {
     try {
       // root-directory/folder
       let folderDestination = path.resolve(
@@ -57,23 +57,37 @@ export class FileUploadService {
         });
       });
 
-      return result ? {success: true, message: "image saved", file: imageName} 
-      : {success: false, message: "the image could not be saved", file: null};
-
+      return result
+        ? { success: true, message: "image saved", file: imageName }
+        : {
+            success: false,
+            message: "the image could not be saved",
+            file: null,
+          };
     } catch (error) {
-      
-      if(error instanceof CustomError) throw error;
+      if (error instanceof CustomError) throw error;
 
       if (envs.ENV !== "prod") {
         console.error(error);
       }
-      return {success: false, message: "error uploading the file", file: null};
+      return {
+        success: false,
+        message: "error uploading the file",
+        file: null,
+      };
     }
   };
   //
-  uploadMultipleFile = (
-    file: File[],
-    folder: string = "uploads",
+  uploadMultipleFile = async (
+    files: fileUpload.UploadedFile[],
+    folder: string = "files",
     validExtenstions: string[] = ["png", "jpg", "jpeg", "webp", "avif"],
-  ) => {};
+  ): Promise<{ success: boolean; message: string; file: string | null }[]> => {
+    const result = await Promise.all(
+      files.map((file) => {
+        return this.uploadSingleFile(file, folder, validExtenstions);
+      }),
+    );
+    return result;
+  };
 }
