@@ -105,4 +105,60 @@ base URL: http://localhost:3000/api/v1/auth
   }
   ```
 
-- Get /validate-email/:token : Validate user email with token
+- Get /validate-email/:token : Validate user email with token (optional)
+
+----
+
+GET /product : Get list of products. 
+
+Payload:
+```
+  Headers (Authorization Bearer ${token}): 
+```
+
+POST /product
+
+Payload:
+
+```
+  Headers (Authorization Bearer ${token}): 
+```
+(JSON or x-www-form-urlencoded): 
+  ```
+  {
+    "name": "product name",
+    "available": "false",
+    "description": "product description",
+    "category": "12345categoryid",
+  }
+  ```
+
+GET/POST category has the same endpoints as /product
+
+Not ``put/delete`` implemented yet, they will be implemented later or probably not, i'm lazy 
+
+---------
+Upload images 
+
+type: "products" | "files" | "categories" | "users"
+ 
+- POST /file-upload/single/${type}
+
+ payload (form-data): 
+  ```
+  {
+    "uploads": "image.jpg",
+  }
+  ```
+
+ 
+- POST /file-upload/multiple/${type}
+
+ payload (form-data): 
+  ```
+  {
+    "uploads": "image-1.jpg",
+    "uploads": "image-2.jpg",
+    "uploads": "image-3.jpg",
+  }
+  ```
